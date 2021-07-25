@@ -24,6 +24,7 @@ from .strategy import BaseStrategy, BarData
 
 
 class Broker(object):
+
     def __init__(self):
         super(Broker, self).__init__()
 
@@ -63,6 +64,9 @@ class Broker(object):
 
         # 是否是运行策略优化的方法。
         self.is_optimizing_strategy = False
+
+        #当前购买的交易对
+        self.coins = {}
 
 
     def set_strategy(self, strategy_class:BaseStrategy):

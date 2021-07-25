@@ -11,6 +11,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils import time_utils
+from datetime import timedelta
 
 class DataType(Enum):
     SPOT = 'spot' # 现货
@@ -87,25 +88,24 @@ def get_klines(data_type: DataType, symbol, interval, start_time_str, end_time_s
 
         data = pd.DataFrame(data, columns=BINANCE_SPOT_DAT_COL)
         print('data shape:{}'.format(data.shape))
-        time_col = pd.to_datetime(data['openTime'], unit='ms')
+        time_col = pd.to_datetime(data['openTime'], unit='ms') + timedelta(hours=8)
         data = pd.concat([time_col, data.drop(['openTime'], axis=1)], axis=1)
 
         total_data = total_data.append(data)
 
-        cur_start_time += interval_dict[interval] * BINANCE_SPOT_LIMIT
-        cur_end_time = min(end_time, cur_start_time + interval_dict[interval] * (BINANCE_SPOT_LIMIT - 1))
+        cur_start_time = min(end_time, cur_start_time + interval_dict[interval] * BINANCE_SPOT_LIMIT)
+        cur_end_time = min(end_time, cur_end_time + interval_dict[interval] * (BINANCE_SPOT_LIMIT))
 
     total_data.set_index('openTime', inplace=True)
     total_data.to_csv('../data/spot_{}/{}_{}_{}_{}.csv'.format(output_path, symbol, interval, start_time_str, end_time_str))
 
 
 def get_kline_batch():
-    with open('../data/exchange.txt') as f:
+    with open('../data/fetch_data_exchange.txt') as f:
         for line in f.readlines():
             symbol = line.strip()
             if symbol:
-                get_klines(DataType.SPOT, symbol, "1d", "2020-01-01_06_55", "2020-12-31_06_55", 'day')
-
+                get_klines(DataType.SPOT, symbol, "1h", "2020-01-01_00_00", "2020-12-31_23_00", 'hour')
 def main():
     get_kline_batch()
 

@@ -16,7 +16,7 @@ __author__ = "51bitquant"  # 作者.
 __weixin__ = "bitquant51"  # 微信.
 
 
-from backtest.backtester import Broker, BaseStrategy, BarData, ArrayManager
+from crypto.backtest.backtester import *
 import pandas as pd
 
 
