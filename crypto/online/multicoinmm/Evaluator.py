@@ -8,6 +8,12 @@ class Evaluator(object):
         pass
 
     @staticmethod
+    def save_net(file, datetime, net_values):
+        with open(file, 'a') as f_out:
+            net_values = ["%.1f" % value for value in net_values]
+            f_out.write(datetime + '\tnet:' + ','.join(net_values) + '\n')
+
+    @staticmethod
     def stat_info(times, net_values, pct_values, btc_values):
         # max ratio
         max_ratio = np.max(pct_values)

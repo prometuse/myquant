@@ -21,7 +21,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 time_now = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime())
-file_name = "data/" + time_now + ".txt"
+file_name = "online_data/" + time_now + ".txt"
 txt_file = open(file_name,'w')
 
 for name in open("name.txt"):

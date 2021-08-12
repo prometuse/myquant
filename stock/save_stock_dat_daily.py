@@ -5,7 +5,7 @@ import MySQLdb
 def load_stock_index():
 	stocks = dict()
 	#with open('fetch_data/sh_stock_code_full.txt', 'r') as f:
-	with open('../data/index_code.txt', 'r') as f:
+	with open('data/index_code.txt', 'r') as f:
 		for line in f.readlines():
 			name, code = line.strip().split('\t')
 			stocks[code] = name

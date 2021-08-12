@@ -17,7 +17,7 @@ class HistDataManager(object):
         pct = self.pct_array[-1] * (1.0 + ((net - self.net_array[-1]) / self.net_array[-1]))
         self.pct_array.append(pct)
         self.net_array.append(net)
-        self.end_times.append(datetime[1:10])
+        self.end_times.append(datetime)
 
         if len(self.btc_price_array) == 0:
             self.btc_price_array.append(btc_price)

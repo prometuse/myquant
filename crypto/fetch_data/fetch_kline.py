@@ -23,7 +23,7 @@ KLINE_URL_S = '/api/v3/klines' # K线数据
 
 BASE_URL_F = 'https://fapi.binance.com' # U本位永续合约
 KLINE_URL_F = '/fapi/v1/klines' # U本位永续合约K线
-FUNDINGRATE_F ='/fapi/v1/fundingRate' # 资金费率
+FUNDINGRATE_F ='/fapi/v1/fundipwdngRate' # 资金费率
 
 BINANCE_SPOT_LIMIT = 500
 BINANCE_FUTURE_LIMIT = 1500
@@ -97,7 +97,7 @@ def get_klines(data_type: DataType, symbol, interval, start_time_str, end_time_s
         cur_end_time = min(end_time, cur_end_time + interval_dict[interval] * (BINANCE_SPOT_LIMIT))
 
     total_data.set_index('openTime', inplace=True)
-    total_data.to_csv('../data/spot_{}/{}_{}_{}_{}.csv'.format(output_path, symbol, interval, start_time_str, end_time_str))
+    total_data.to_csv('../data/spot_{}_binance/{}_{}_{}_{}.csv'.format(output_path, symbol, interval, start_time_str, end_time_str))
 
 
 def get_kline_batch():
@@ -105,16 +105,9 @@ def get_kline_batch():
         for line in f.readlines():
             symbol = line.strip()
             if symbol:
-                get_klines(DataType.SPOT, symbol, "1h", "2020-01-01_00_00", "2020-12-31_23_00", 'hour')
+                get_klines(DataType.SPOT, symbol, "1h", "2020-01-01_00_00", "2021-08-05_21_00", 'hour')
 def main():
     get_kline_batch()
 
 if __name__ == '__main__':
     main()
-
-
-#获取天级别线
-
-#获取小时级别
-
-#获取分钟级别

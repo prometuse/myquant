@@ -6,7 +6,7 @@ from .data import BarData
 class ArrayManager(object):
     """
     For:
-    1. time series container of bar data
+    1. time series container of bar online_data
     2. calculating technical indicator value
     """
 
@@ -24,7 +24,7 @@ class ArrayManager(object):
 
     def update_bar(self, bar: BarData):
         """
-        Update new bar data into array manager.
+        Update new bar online_data into array manager.
         """
         self.count += 1
         if not self.inited and self.count >= self.size:

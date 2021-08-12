@@ -10,7 +10,7 @@ TIAOZHENG_STAT_DAYS = [3,10]
 
 def load_stock_code_name_mapping():
 	stocks = dict()
-	with open('../data/sh_stock_code_full.txt', 'r') as f:
+	with open('data/sh_stock_code_full.txt', 'r') as f:
 		for line in f.readlines():
 			name, code = line.strip().split('\t')
 			code_str = "sh." + code

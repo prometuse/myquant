@@ -2,8 +2,6 @@
     对目前持有币的管理.
     包括涨幅
 """
-import os
-import pandas as pd
 
 #持有的币种信息
 class CoinPosInfo(object):
@@ -28,17 +26,17 @@ class CoinPosInfo(object):
         self.cur_net = self.volumn * cur_price
         self.cur_pct = (cur_price - self.bought_price) / self.bought_price
 
-
 class PotoManager(object):
 
-    def __init__(self):
+    def __init__(self, cash):
         self.coins = {}
-        self.net = 0.0
+        self.cash = cash
+        self.net = cash
 
-    def update_poto(self, symbol, price, high=0.0, low=0.0):
+    def update_poto(self, symbol, price):
         if symbol not in self.coins:
             return
-        self.coins[symbol].update(price, high, low)
+        self.coins[symbol].update(price)
 
     def buy_coin(self, symbol, price, volumn):
         self.coins[symbol] = CoinPosInfo(price, volumn)
